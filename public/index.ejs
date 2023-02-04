@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Express CRUD Blog</title>
-  </head>
+  <%- include ("includes/header") %>
   <body>
-    <h1>Hello World!</h1>
+    <%- include ("includes/navbar") %>
+    <div class="container mt-2">
+      <h1>Posts</h1>
+      <% posts.forEach((post) => { %>
+
+      <div class="card p-3 mt-3">
+        <h3><%= post.title %></h3>
+        <small
+          >Created on <%= new Date(post.created_at).toLocaleDateString('en-GB',
+          { year: 'numeric', month: 'long', day: 'numeric' }) %> by <%=
+          post.author %>
+        </small>
+        <p><%= post.body %></p>
+        <a href="/post/<%= post.id %>" class="btn btn-primary">Read More</a>
+      </div>
+
+      <% }) %>
+    </div>
   </body>
 </html>

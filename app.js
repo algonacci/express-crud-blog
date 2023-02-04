@@ -15,7 +15,15 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("views", "./public");
 
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  connection.query(
+    "SELECT * FROM posts ORDER BY created_at DESC",
+    (error, results) => {
+      if (error) {
+        console.log(error);
+      }
+      res.render("index.ejs", { posts: results });
+    }
+  );
 });
 
 module.exports = app;
