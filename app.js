@@ -96,4 +96,17 @@ app.post("/update_post/:id", (req, res) => {
   );
 });
 
+app.post("/delete_post/:id", (req, res) => {
+  connection.query(
+    "DELETE FROM posts WHERE id = ?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+      }
+      res.redirect("/");
+    }
+  );
+});
+
 module.exports = app;
