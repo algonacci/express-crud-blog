@@ -63,4 +63,37 @@ app.post("/add_post", (req, res) => {
   );
 });
 
+app.get("/edit_post/:id", (req, res) => {
+  connection.query(
+    "SELECT * FROM posts WHERE id = ?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+      }
+      res.render("edit_post.ejs", (post = results[0]));
+    }
+  );
+});
+
+app.post("/update_post/:id", (req, res) => {
+  title = req.body.title;
+  author = req.body.author;
+  body = req.body.body;
+
+  connection.query(
+    `
+    UPDATE posts SET title = ?, author = ?, body = ?
+    WHERE id = ?
+    `,
+    [title, author, body, req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+      }
+      res.redirect("/");
+    }
+  );
+});
+
 module.exports = app;
