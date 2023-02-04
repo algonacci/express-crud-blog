@@ -39,4 +39,28 @@ app.get("/post/:id", (req, res) => {
   );
 });
 
+app.get("/add_post", (req, res) => {
+  res.render("add_post.ejs");
+});
+
+app.post("/add_post", (req, res) => {
+  title = req.body.title;
+  author = req.body.author;
+  body = req.body.body;
+
+  connection.query(
+    `
+    INSERT INTO posts (title, author, body)
+    VALUES (?, ?, ?)
+    `,
+    [title, author, body],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+      }
+      res.redirect("/");
+    }
+  );
+});
+
 module.exports = app;
