@@ -26,4 +26,17 @@ app.get("/", (req, res) => {
   );
 });
 
+app.get("/post/:id", (req, res) => {
+  connection.query(
+    "SELECT * FROM posts WHERE id = ?",
+    [req.params.id],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+      }
+      res.render("post.ejs", { post: results });
+    }
+  );
+});
+
 module.exports = app;

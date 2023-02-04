@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include ("includes/header") %>
+  <body>
+    <%- include ("includes/navbar") %>
+    <div class="container">
+      <a href="/" class="btn btn-primary mt-3 mb-3">Back</a>
+      <h3><%= post[0].title %></h3>
+      <small
+        >Created on <%= new Date(post[0].created_at).toLocaleDateString('en-GB',
+        { year: 'numeric', month: 'long', day: 'numeric' }) %> by <%=
+        post[0].author %>
+      </small>
+      <p><%= post[0].body %></p>
+      <hr />
+      <form
+        action="/delete_post/<%= post[0].id %>"
+        class="text-end"
+        method="POST"
+      >
+        <input type="hidden" name="delete_id" value="<%= post[0].id %>" />
+        <input
+          type="submit"
+          name="delete"
+          value="Delete"
+          class="btn btn-danger"
+        />
+      </form>
+      <a href="/edit_post/<%= post[0].id %>" class="btn btn-success">
+        Edit Post
+      </a>
+    </div>
+  </body>
+</html>
